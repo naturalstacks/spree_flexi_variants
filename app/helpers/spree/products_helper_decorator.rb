@@ -80,11 +80,15 @@ module Spree
       ah_ov.price_modifier == 0 ? "" : " (#{plus_or_minus} #{Spree::Money.new(ah_ov.price_modifier.abs).to_s})"
     end
 
+    def stock_on_hand(ah_ov)
+      ah_ov.product.total_on_hand.zero? ? ' (Out of Stock)' : " (#{ah_ov.product.total_on_hand} Available)"
+    end
+
 
     def ad_hoc_option_value_presentation_with_price_modifier(ah_ov)
       presentation_string = ah_ov.price_modifier.nil? ? 
                              ah_ov.option_value.presentation : 
-                             "#{ah_ov.option_value.presentation} #{price_change_text(ah_ov)}"
+                             "#{ah_ov.option_value.presentation} #{price_change_text(ah_ov)} #{stock_on_hand(ah_ov)}"
     end
 
     def calculator_name(product_customization_type)

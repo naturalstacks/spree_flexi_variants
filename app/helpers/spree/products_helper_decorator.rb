@@ -81,7 +81,8 @@ module Spree
     end
 
     def stock_on_hand(ah_ov)
-      ah_ov.product.total_on_hand.zero? ? ' (Out of Stock)' : " (#{ah_ov.product.total_on_hand} Available)"
+      product = ah_ov.ad_hoc_option_type.product
+      product.total_on_hand.zero? ? ' (Out of Stock)' : " (#{product.total_on_hand} Available)"
     end
 
 

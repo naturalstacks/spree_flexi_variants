@@ -35,7 +35,7 @@ module Spree
             line_item.currency = currency unless currency.nil?
             line_item.price    = variant.price_in(currency).amount + offset_price
           else
-            line_item.price    = variant.price + adjusted_price
+            line_item.price    = variant.price # + adjusted_price
           end
         end
   

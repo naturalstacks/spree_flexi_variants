@@ -68,7 +68,7 @@ module Spree
       # if there aren't any povs, there's a 'match'
       return true if existing_povs.empty? && new_povs.empty?
 
-      existing_povs.map(&:id).sort == new_povs.map(&:to_i).sort
+      existing_povs.map(&:id).sort == new_povs.flatten.map(&:id).sort
     end
 
     def matching_customizations(existing_customizations,new_customizations)

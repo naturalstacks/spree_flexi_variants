@@ -38,7 +38,7 @@ module Spree
 
           offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
 
-          if currency
+          if currency.any?
             line_item.currency = currency unless currency.nil?
             line_item.price    = variant.price_in(currency).amount + offset_price
           else

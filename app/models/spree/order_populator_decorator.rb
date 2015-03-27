@@ -16,7 +16,6 @@ module Spree
       # from_hash[:variants].each do |variant_id, quantity|
       #   attempt_cart_add(variant_id, quantity, from_hash[:ad_hoc_option_value_ids], from_hash[:product_customizations])
       # end if from_hash[:variants]
-
       attempt_cart_add(from_hash[:variant_id], from_hash[:quantity], from_hash[:ad_hoc_option_value_ids], from_hash[:product_customizations])
 
       # raise 't'

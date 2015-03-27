@@ -29,7 +29,7 @@ module Spree
       current_item
     end
 
-    def contains?(variant, ad_hoc_option_value_ids, product_customizations)
+    def contains?(variant, ad_hoc_option_value_ids = nil, product_customizations = nil)
       find_line_item_by_variant(variant, ad_hoc_option_value_ids, product_customizations).present?
     end
 

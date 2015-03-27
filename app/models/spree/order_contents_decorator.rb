@@ -23,11 +23,10 @@ module Spree
 
           # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
           # we postponed it (performance reasons) until we actaully knew we needed them
-          povs=[]
-          ad_hoc_option_value_ids.each do |cid|
-            povs << AdHocOptionValue.find(cid)
+          
+          povs = ad_hoc_option_value_ids.map do |cid|
+            AdHocOptionValue.find(cid)
           end
-          line_item.ad_hoc_option_values = povs
 
           offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
 
@@ -38,10 +37,13 @@ module Spree
             line_item.price    = variant.price # + adjusted_price
           end
         end
-  
         line_item.save
-        order.reload
 
+        line_item.ad_hoc_option_values = povs
+        line_item.save
+
+
+        order.reload
         line_item
       end
   

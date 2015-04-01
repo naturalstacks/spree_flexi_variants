@@ -1,0 +1,7 @@
+<ul style="padding-left:20px;">
+  <% item.line_item.ad_hoc_option_values.each do |ahov| %>
+    <% ahov.products.each do |prod| %>
+      <li><small><%= prod.name %></small></li>
+    <% end %>
+  <% end %>
+</ul>

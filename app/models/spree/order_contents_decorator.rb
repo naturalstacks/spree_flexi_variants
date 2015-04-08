@@ -39,13 +39,12 @@ module Spree
         end
         line_item.save
 
-        line_item.ad_hoc_option_values = povs
+        line_item.ad_hoc_option_values = povs unless povs.nil?
         line_item.save
 
 
         order.reload
         line_item
       end
-  
   end
 end

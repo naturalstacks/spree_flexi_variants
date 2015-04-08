@@ -16,7 +16,6 @@ module Spree
       end
     end
 
-
     def add_variant(variant, quantity = 1, ad_hoc_option_value_ids=[], product_customizations=[])
       current_item = contains?(variant, ad_hoc_option_value_ids, product_customizations)
       if current_item
@@ -50,11 +49,15 @@ module Spree
       find_line_item_by_variant(variant, ad_hoc_option_value_ids, product_customizations).present?
     end
 
-    def find_line_item_by_variant(variant, ad_hoc_option_value_ids, product_customizations)
-      line_items.detect do |li|
-        li.variant_id == variant.id &&
-          matching_configurations(li.ad_hoc_option_values,ad_hoc_option_value_ids) &&
-          matching_customizations(li.product_customizations,product_customizations)
+    def find_line_item_by_variant(variant, ad_hoc_option_value_ids = nil, product_customizations = nil)
+      if ad_hoc_option_value_ids.nil? && product_customizations.nil?
+         line_items.detect { |line_item| line_item.variant_id == variant.id }
+      else
+        line_items.detect do |li|
+          li.variant_id == variant.id &&
+            matching_configurations(li.ad_hoc_option_values,ad_hoc_option_value_ids) &&
+            matching_customizations(li.product_customizations,product_customizations)
+        end
       end
     end
 

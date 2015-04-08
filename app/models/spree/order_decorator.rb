@@ -1,5 +1,22 @@
 module Spree
   Order.class_eval do
+    state_machine.before_transition to: :complete, do: :reduce_stock
+
+    def reduce_stock
+      shipments.each do |ship|
+        ship.inventory_units.each do |iu|
+          iu.line_item.ad_hoc_option_values.each do |ahov|
+            ahov.products.each do |prod|
+              prod.stock_items.each do |si|
+                si.adjust_count_on_hand(-iu.line_item.quantity)
+              end
+            end
+          end
+        end
+      end
+    end
+
+
     def add_variant(variant, quantity = 1, ad_hoc_option_value_ids=[], product_customizations=[])
       current_item = contains?(variant, ad_hoc_option_value_ids, product_customizations)
       if current_item

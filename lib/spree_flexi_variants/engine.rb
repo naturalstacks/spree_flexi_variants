@@ -37,6 +37,9 @@ module SpreeFlexiVariants
                                                                     Spree::Calculator::ProductArea,
                                                                     Spree::Calculator::CustomizationImage,
                                                                     Spree::Calculator::NoCharge
+                                                                    Spree::Calculator::CustomCalculator
+    end
+    
                                                                    ]
     end
   end

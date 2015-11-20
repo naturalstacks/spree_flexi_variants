@@ -46,7 +46,7 @@ module Spree
       end
   
       def grab_line_item_by_variant(variant, raise_error = false, options = {}, ad_hoc_option_value_ids, product_customizations)
-        line_item = order.find_line_item_by_variant(variant, options)
+        line_item = order.find_line_item_by_variant(variant, options, ad_hoc_option_value_ids, product_customizations)
 
         if !line_item.present? && raise_error
           raise ActiveRecord::RecordNotFound, "Line item not found for variant #{variant.sku}"

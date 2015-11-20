@@ -2,13 +2,6 @@
 <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
 
 <div id="ad_hoc_options">
-  <% if !@product.ad_hoc_variant_exclusions.empty? %>
-    <h4 id="not_all_available">
-      <%= t(:not_all_combinations_available) %>
-    </h4>
-  <% end %>
-
-  <h6 class="product-section-title"><%= t(:select_variant_options) %></h6>
   <dl>
     <% @product.ad_hoc_option_types.each do |ahot| %>
       <% ot=ahot.option_type %>

@@ -31,7 +31,7 @@ module ProductCustomizations
 
     end if params[:product_customizations]
 
-    params[:product_customizations]
+    customizations
   end
 
 end

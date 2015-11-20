@@ -15,16 +15,10 @@ module Spree
       variant  = Spree::Variant.find(params[:variant_id])
       quantity = params[:quantity].to_i
       options  = params[:options] || {}
-      if ad_hoc_option_value_ids
-        options.merge(ad_hoc_option_value_ids)
-      end
-      if product_customizations
-        options.merge(product_customizations)
-      end
       # 2,147,483,647 is crazy. See issue #2695.
       if quantity.between?(1, 2_147_483_647)
         begin
-          order.contents.add(variant, quantity, options)
+          order.contents.add(variant, quantity, options, ad_hoc_option_value_ids, product_customizations)
         rescue ActiveRecord::RecordInvalid => e
           error = e.record.errors.full_messages.join(", ")
         end

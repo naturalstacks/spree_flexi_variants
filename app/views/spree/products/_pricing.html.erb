@@ -45,7 +45,7 @@
     $(function() {
 
       // watch for variant changes
-      $("#product-variants input[type='radio']").change(function() {
+      $(".option-value").click(function() {
         updatePrice();
       });
 
@@ -69,9 +69,7 @@
   function compute_variant_price_diff(base_price) {
     var variant_price=0;
 
-    $("#product-variants input[type='radio']:checked").each (function() {
-      variant_price=variant_price_map[$(this).val()];
-    });
+    variant_price=variant_price_map[$("#variant_id").val()];
 
     <% if @product.has_variants? %>
       return variant_price-base_price;
@@ -124,7 +122,7 @@
 
   function updatePrice() {
 
-    var cur_variant_price_diff       = compute_variant_price_diff(base_price);
+    var cur_variant_price_diff = compute_variant_price_diff(base_price);
     var cur_configuration_price =  compute_configuration_price();
     var cur_customization_price =  compute_customization_price();
     var cur_price =base_price + cur_variant_price_diff + cur_configuration_price + cur_customization_price;

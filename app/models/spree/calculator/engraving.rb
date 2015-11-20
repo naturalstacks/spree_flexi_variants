@@ -6,7 +6,7 @@ module Spree
     #attr_accessible :preferred_price_per_letter
 
     def self.description
-      "Engraving Calculator"
+      "Personal Message Calculator"
     end
 
     def self.register
@@ -17,7 +17,7 @@ module Spree
     def create_options
       # This calculator knows that it needs one CustomizableOption named inscription
       [
-       CustomizableProductOption.create(:name=>"inscription", :presentation=>"Inscription")
+       CustomizableProductOption.create(:name=>"personal-message", :presentation=>"Personal Message")
       ]
     end
 

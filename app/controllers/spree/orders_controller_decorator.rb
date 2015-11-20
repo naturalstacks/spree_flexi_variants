@@ -11,9 +11,9 @@ module Spree
     #
     # Adds a new item to the order (creating a new order if none already exists)
     def populate
-      populator = OrderContents.new(current_order(create_order_if_necessary: true))
+      populator = Order.new(current_order(create_order_if_necessary: true))
 
-      if populator.populate(params[:variant_id], params[:quantity], ad_hoc_option_value_ids, product_customizations)
+      if populator.add(params[:variant_id], params[:quantity], ad_hoc_option_value_ids, product_customizations)
         current_order.ensure_updated_shipments
 
         respond_with(@order) do |format|

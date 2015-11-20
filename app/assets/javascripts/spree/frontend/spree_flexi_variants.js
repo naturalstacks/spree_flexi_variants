@@ -13,7 +13,7 @@ $(function () {
   });
   // image customizations need multipart
   $("#cart-form form").attr("enctype","multipart/form-data");
-  $("#cart-form form").validate();
+  // $("#cart-form form").validate();
 });
 // 'replacement' is always a pure, empty file input
 function attachFileInputSwap(current, replacement) {

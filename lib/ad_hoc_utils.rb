@@ -17,6 +17,6 @@ module AdHocUtils
       end
     end if params[:ad_hoc_option_values]
 
-    ids
+    params[:ad_hoc_option_values]
   end
 end

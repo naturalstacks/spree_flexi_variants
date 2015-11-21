@@ -36,22 +36,23 @@ module Spree
     def find_line_item_by_variant(variant, options={}, ad_hoc_option_value_ids, product_customizations)
       line_items.detect do |li|
         li.variant_id == variant.id &&
+          line_item_options_match(li, options) &&
           matching_configurations(li.ad_hoc_option_values,ad_hoc_option_value_ids) &&
           matching_customizations(li.product_customizations,product_customizations)
       end
     end
 
-    def merge!(order, user = nil)
-      order.line_items.each do |line_item|
-        self.add_variant(line_item.variant, line_item.quantity, line_item.ad_hoc_option_value_ids, line_item.product_customizations)
-      end
+    # def merge!(order, user = nil)
+    #   order.line_items.each do |line_item|
+    #     self.add_variant(line_item.variant, line_item.quantity, line_item.ad_hoc_option_value_ids, line_item.product_customizations)
+    #   end
 
-      self.associate_user!(user) if !self.user && !user.blank?
+    #   self.associate_user!(user) if !self.user && !user.blank?
 
-      # So that the destroy doesn't take out line items which may have been re-assigned
-      order.line_items.reload
-      order.destroy
-    end
+    #   # So that the destroy doesn't take out line items which may have been re-assigned
+    #   order.line_items.reload
+    #   order.destroy
+    # end
 
     private
 

@@ -30,7 +30,7 @@ module Spree
             povs << AdHocOptionValue.find(cid)
           end
           line_item.ad_hoc_option_values = povs
-
+          
           offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
 
           if currency

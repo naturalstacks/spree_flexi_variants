@@ -2,7 +2,6 @@
   if SpreeFlexiVariants::Config[:use_javascript_pricing_updates]
 %>
 
-<%= content_for :head do %>
   <%# didn't use javascript_tag here so we don't confuse deface %>
   <script type="text/javascript">
     //<![CDATA[
@@ -58,8 +57,8 @@
       });
 
       updatePrice(); // set the initial price
-    } // ready
-  ); // ready
+      } // ready
+    ); // ready
 
   // stolen from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
   function isNumeric(input) {
@@ -132,6 +131,5 @@
 
   //]]>
   </script>
-<% end %>
 <%# end if SpreeFlexiVariants::Config[:use_javascript_pricing_updates] %>
 <% end %>

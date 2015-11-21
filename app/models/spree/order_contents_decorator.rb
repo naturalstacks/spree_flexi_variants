@@ -10,43 +10,39 @@ module Spree
     end
 
     private
-      def add_to_line_item(variant, quantity, options, ad_hoc_option_value_ids = [], product_customizations = [])
-        line_item = grab_line_item_by_variant(variant, false, options,  ad_hoc_option_value_ids, product_customizations)
+      def add_to_line_item(line_item, variant, quantity, currency=nil, shipment=nil, ad_hoc_option_value_ids = [], product_customizations = [])
+        if line_item
+          line_item.target_shipment = shipment
+          line_item.quantity += quantity.to_i
+          line_item.currency = currency unless currency.nil?
+        else
+          line_item = order.line_items.new(quantity: quantity, variant: variant)
+          line_item.target_shipment = shipment
+          line_item.product_customizations = product_customizations
+          product_customizations.each {|pc| pc.line_item = line_item}
+          product_customizations.map(&:save)
+          povs=[]
+            ad_hoc_option_value_ids.each do |cid|
+              povs << AdHocOptionValue.find(cid)
+            end
+            line_item.ad_hoc_option_values = povs
+            puts line_item.inspect
+            puts povs.inspect
 
-      if line_item
-        line_item.quantity += quantity.to_i
-        line_item.currency = currency unless currency.nil?
-      else
-        opts = { currency: order.currency }.merge ActionController::Parameters.new(options).
-                                            permit(PermittedAttributes.line_item_attributes)
-        line_item = order.line_items.new(quantity: quantity,
-                                          variant: variant,
-                                          options: opts)
-        line_item.product_customizations = product_customizations
-        product_customizations.each {|pc| pc.line_item = line_item}
-        product_customizations.map(&:save)
-        povs=[]
-          ad_hoc_option_value_ids.each do |cid|
-            povs << AdHocOptionValue.find(cid)
-          end
-          line_item.ad_hoc_option_values = povs
-          puts line_item.inspect
-          puts povs.inspect
+            offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
 
-          offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
-
-          puts offset_price.inspect
-
+            puts offset_price.inspect
           if currency
             line_item.currency = currency unless currency.nil?
             line_item.price    = variant.price_in(currency).amount + offset_price
           else
             line_item.price    = variant.price + offset_price
           end
-      end
-      line_item.target_shipment = options[:shipment] if options.has_key? :shipment
-      line_item.save!
-      line_item
+        end
+
+        line_item.save
+        order.reload
+        line_item
       end
   
       def grab_line_item_by_variant(variant, raise_error = false, options = {}, ad_hoc_option_value_ids, product_customizations)

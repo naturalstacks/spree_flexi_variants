@@ -42,7 +42,7 @@
       };
     })();
 
-    $(function() {
+    $(document).on('page:change', function(event) {
 
       // watch for variant changes
       $(".option-value").click(function() {

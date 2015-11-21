@@ -69,6 +69,9 @@
     var variant_price=0;
 
     variant_price=variant_price_map[$("#variant_id").val()];
+    if (isNaN(variant_price)) {
+      variant_price=0;
+    };
 
     <% if @product.has_variants? %>
       return variant_price-base_price;

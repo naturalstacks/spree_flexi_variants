@@ -1,5 +1,3 @@
-require 'spree/order'
-
 module Spree
 	OrderMerger.class_eval do
 	  	def merge!(other_order, user = nil)

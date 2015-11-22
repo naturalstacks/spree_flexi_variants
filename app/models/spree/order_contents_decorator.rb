@@ -32,6 +32,7 @@ module Spree
           line_item.ad_hoc_option_values = povs
           puts line_item.inspect
           puts povs.inspect
+          line_item.adjustmentsz
 
           offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
 

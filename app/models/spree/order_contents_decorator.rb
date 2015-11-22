@@ -4,7 +4,8 @@ module Spree
     # Add variant qty to line_item
     def add(variant, quantity = 1, options = {}, ad_hoc_option_value_ids = [], product_customizations = [])
       timestamp = Time.now
-      line_item = add_to_line_item(variant, quantity, options, ad_hoc_option_value_ids, product_customizations)
+      line_item = order.find_line_item_by_variant(variant)
+      add_to_line_item(line_item, variant, quantity, currency, shipment, ad_hoc_option_value_ids, product_customizations)
       options[:line_item_created] = true if timestamp <= line_item.created_at
       after_add_or_remove(line_item, options)
     end

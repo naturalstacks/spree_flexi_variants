@@ -2,18 +2,18 @@ module Spree
   OrderContents.class_eval do
     # Get current line item for variant if exists
     # Add variant qty to line_item
-    # def add(variant, quantity = 1, options = {}, ad_hoc_option_value_ids = [], product_customizations = [])
-    #   timestamp = Time.now
-    #   line_item = add_to_line_item(variant, quantity, options, ad_hoc_option_value_ids, product_customizations)
-    #   options[:line_item_created] = true if timestamp <= line_item.created_at
-    #   after_add_or_remove(line_item, options)
-    # end
+    def add(variant, quantity = 1, options = {}, ad_hoc_option_value_ids = [], product_customizations = [])
+      timestamp = Time.now
+      line_item = add_to_line_item(variant, quantity, options, ad_hoc_option_value_ids, product_customizations)
+      options[:line_item_created] = true if timestamp <= line_item.created_at
+      after_add_or_remove(line_item, options)
+    end
 
     private
       def add_to_line_item(variant, quantity, options = {}, ad_hoc_option_value_ids = [], product_customizations = [])
         line_item = grab_line_item_by_variant(variant, false, options)
 
-        if line_item
+        if line_item && part_variants_match?(line_item, variant, quantity, options)
           line_item.quantity += quantity.to_i
           line_item.currency = currency unless currency.nil?
         else

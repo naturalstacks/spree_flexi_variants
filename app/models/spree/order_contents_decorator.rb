@@ -2,6 +2,7 @@ module Spree
   OrderContents.class_eval do
     # Get current line item for variant if exists
     # Add variant qty to line_item
+    
     def add(variant, quantity = 1, options = {}, ad_hoc_option_value_ids = [], product_customizations = [])
       timestamp = Time.now
       line_item = add_to_line_item(variant, quantity, options, ad_hoc_option_value_ids, product_customizations)

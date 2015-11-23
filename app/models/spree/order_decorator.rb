@@ -67,7 +67,7 @@ module Spree
 
     def matching_configurations(existing_povs,new_povs)
       # if there aren't any povs, there's a 'match'
-      return true if existing_povs.empty? && new_povs
+      return true if existing_povs.empty? && !new_povs
 
       existing_povs.map(&:id).sort == new_povs.map(&:to_i).sort
     end

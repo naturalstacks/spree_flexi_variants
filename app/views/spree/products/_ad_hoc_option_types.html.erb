@@ -15,7 +15,7 @@
       <% if lookup.exists?(partial_name,nil,true) %>
         <%= render :partial => partial_name, :locals => {:option_type=>ahot, :class_str=>class_str} %>
       <% else %>
-        <dt><%= ot.presentation %></dt>
+        <dt><%= ot.presentation %>:</dt>
         <% select_opts = {:class => class_str} %>
         <% select_opts[:prompt] = 'None' if ahot.option_values.size > 1 && ahot.option_values.none? {|ov| ov.selected? }%>
 

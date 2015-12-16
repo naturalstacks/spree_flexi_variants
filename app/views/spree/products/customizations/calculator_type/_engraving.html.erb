@@ -23,9 +23,12 @@
       }); // keyup
     <% end %>
   <% end %>
-
-<%= field_set_tag product_customization_type.presentation do %>
+<% @customized_presentation = product_customization_type.presentation + ":" %>
+<%= field_set_tag @customized_presentation do %>
   <% option = product_customization_type.customizable_product_options.first %>
+  <div id="card-image">
+    <%= image_tag "novideo_card.jpg" %>
+  </div>
   <ol>
     <li>
   	  <label for="<%= cust_dom_id %>"><%= option.description %></label>

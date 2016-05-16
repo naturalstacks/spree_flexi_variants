@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_flexi_variants'
-  s.version     = '2.1.0'
+  s.version     = '2.1.1'
   s.summary     = 'Add gem summary here'
   #s.description = 'Add (optional) gem description here'
   s.required_ruby_version = '>= 1.9.3'
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
-  s.add_dependency 'spree', '>= 3.1.0.beta'
+  s.add_dependency 'spree', '>= 3.1.0.rc2'
 
   s.add_development_dependency 'capybara',           '~> 2.1'
   s.add_development_dependency 'coffee-rails'

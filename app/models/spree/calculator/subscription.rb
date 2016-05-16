@@ -8,7 +8,7 @@ module Spree
     #attr_accessible :preferred_multiplier, :preferred_min_amount, :preferred_max_amount
 
     def self.description
-      "Amount Times Constant Calculator"
+      "Subscription Discount Calculator"
     end
 
     def self.register
